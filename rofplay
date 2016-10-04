@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-cur="/mnt/Aye/Video"
+cur="$HOME/Video"
 nex=""
 
 while [ -d "$cur$nex" ]; do
