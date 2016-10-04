@@ -21,7 +21,7 @@ else
 
    if [ "$place" == "" ]; then
       place="`w3m duckduckgo.com/html/?q=my+ip | grep -m 1 "Your IP address is"| cut --complement -d' ' -f 1-6`"
-      echo -e "dev:`cat "/sys/class/net/tap0/address"`\nplace:$place" >> "/tmp/locator.tmp"
+      echo -e "dev:`cat "/sys/class/net/tap0/address"`\nplace:$place" > "/tmp/locator.tmp"
    fi
 
    echo "$place"
