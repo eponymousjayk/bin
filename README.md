@@ -10,7 +10,7 @@ Utility programs mainly oriented toward a single purpose.
    Dependencies: Arc GTK Theme
 
 ###getwindowtitle:
-   Grabs the currently focused window title.
+   Grabs the currently focused window title.   
    Dependencies: wmutils
 
 ###locator:
