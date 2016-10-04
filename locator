@@ -1,0 +1,28 @@
+#!/usr/bin/env bash
+
+if [ ! -d "/sys/class/net/tap0" ]; then
+  if [ -f "$HOME/.config/locator.conf" ]; then
+     cat "$HOME/.config/locator.conf" | while read line; do
+        pid=`pidof "$line"`
+        [[ "$pid" ]] && kill "$pid"
+     done
+  fi
+  echo "No VPN"
+else
+   place=
+   if [ -f "/tmp/locator.tmp" ]; then
+      dev="`cat /tmp/locator.tmp | grep "dev:" | cut --complement -d: -f 1`"
+      if [ "$dev" == "`cat "/sys/class/net/tap0/address"`" ]; then
+         place="`cat /tmp/locator.tmp | grep "place:" | cut -d: -f 2`"
+      else
+         rm "/tmp/locator.tmp" 
+      fi
+   fi
+
+   if [ "$place" == "" ]; then
+      place="`w3m duckduckgo.com/html/?q=my+ip | grep -m 1 "Your IP address is"| cut --complement -d' ' -f 1-6`"
+      echo -e "dev:`cat "/sys/class/net/tap0/address"`\nplace:$place" >> "/tmp/locator.tmp"
+   fi
+
+   echo "$place"
+fi

@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+
+cur="/mnt/Aye/Video"
+nex=""
+
+while [ -d "$cur$nex" ]; do
+   cur="$cur$nex"
+   nex="/""`ls "$cur" | rofi -dmenu`"
+   if [ "$nex" == "/" ]; then
+      exit;
+   fi
+done
+
+exo-open "$cur$nex"

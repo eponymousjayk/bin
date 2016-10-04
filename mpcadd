@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+
+# this probably won't work without the path to the file relative to the
+# root music directory specified in the mpc config
+
+fullPath="$1"
+
+file="`echo "$1" | sed -e "s/.\+Music\///"`"
+a=$((`mpc playlist | wc -l` + 1))
+
+mpc add "$file"
+mpc play $a
