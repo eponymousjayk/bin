@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-cur="$HOME/Video"
+cur="$HOME/Videos"
 nex=""
 
 while [ -d "$cur$nex" ]; do
