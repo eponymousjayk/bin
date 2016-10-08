@@ -1,3 +1,0 @@
-#!/usr/bin/env bash
-
-env GTK_THEME=Arc MOZ_DISABLE_GMP_SANDBOX=1 firefox
