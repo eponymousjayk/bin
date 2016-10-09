@@ -1,8 +1,8 @@
-#!/bin/sh
+#!/usr/bin/env bash
 #from https://wiki.archlinux.org/index.php/Firefox_on_RAM
 
 static=main
-link=lvi4i8ko.default
+link=`ls $HOME/.mozilla/firefox | grep default`
 volatile=/dev/shm/firefox-$USER
 
 IFS=
@@ -25,3 +25,12 @@ else
    rsync -av ./$static/ ./$link/
    touch $link/.unpacked
 fi
+
+count=`cat /tmp/fsync`
+if [ "$count" ]; then
+   count=$((count + 1))
+else
+   count=0
+fi
+
+echo "$count" | tee /tmp/fsync
