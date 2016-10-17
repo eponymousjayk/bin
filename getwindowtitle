@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-title="$(wname "$(pfw)")"
+title="$(xdotool getwindowname `xdotool getwindowfocus`)"
 
 cmd="$1"
 
