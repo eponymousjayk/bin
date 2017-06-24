@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
 MAGICK_TMPDIR="$HOME/.cache/magick"
+work=$(tr -d ':' <<< "/tmp/gifit$(date -Iseconds)")
 
 
 filename="$1"
@@ -16,13 +17,12 @@ if [ "`pidof compton`" ]; then
     flag="1"
 fi
 
-work=$(tr -d ':' <<< "/tmp/gifit$(date -Iseconds)")
-mkdir -p "$work"
 
 echo "Select geometry"
 dims=$(ffcast -qs)
 
 echo "Ctrl + C when finished"
+mkdir -p "$work"
 ffcast -g "$dims" rec -r 20 "$work"/%04d.png
 
 if [ "$flag" == "1" ]; then
@@ -31,9 +31,9 @@ fi
 
 ram_percent="25" # careful!
 free="`free --mega | grep Mem | awk '{print $4}'`"
-free="`echo "$free*$ram_percent/100" | bc`"
+free="$(($free*$ram_percent/100))"
 
-if ! [ $(grep .gif$ <<< $1) ]; then
+if ! [ $(grep .gif$ <<< "$filename") ]; then
     filename="$filename.gif"
 fi
 
