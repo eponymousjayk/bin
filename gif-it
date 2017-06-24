@@ -1,8 +1,5 @@
 #!/usr/bin/env bash
 
-MAGICK_TMPDIR="$HOME/.cache/magick"
-work=$(tr -d ':' <<< "/tmp/gifit$(date -Iseconds)")
-
 
 filename="$1"
 if [ "$filename" == "" ]; then
@@ -10,13 +7,13 @@ if [ "$filename" == "" ]; then
     exit
 fi
 
-
 if [ "`pidof compton`" ]; then
     echo "Disabling compton momentarily..."
     killall compton
     flag="1"
 fi
 
+work=$(tr -d ':' <<< "/tmp/gifit-$(date -Iseconds)") # working directory of gif-it
 
 echo "Select geometry"
 dims=$(ffcast -qs)
@@ -29,7 +26,11 @@ if [ "$flag" == "1" ]; then
     compton -b
 fi
 
-ram_percent="25" # careful!
+# ram_percent sets 'limit' of convert below. It's percent of *free* ram.
+# From my understanding, if it exceeds this limit, it uses MAGICK_TMPDIR, which is often /tmp, a tmpfs, which is pointless and defies expectation.
+ram_percent="25"
+MAGICK_TMPDIR="$HOME/.cache/magick"
+
 free="`free --mega | grep Mem | awk '{print $4}'`"
 free="$(($free*$ram_percent/100))"
 
@@ -39,4 +40,5 @@ fi
 
 convert -monitor -limit memory "$free" -loop 0 -delay 5 "$work"/*.png -layers Optimize "$filename"
 
+# cleanup
 rm -r "$work"
