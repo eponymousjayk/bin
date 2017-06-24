@@ -15,7 +15,9 @@ if [ "$a" == "" ]; then
         [[ "$pid" ]] && kill "$pid"
      done
   fi
-  rm "/tmp/locator.tmp"
+  if [ -f "/tmp/locator.tmp" ]; then
+      rm "/tmp/locator.tmp"
+  fi
   echo "No VPN"
 else
    place=

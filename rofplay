@@ -1,6 +1,8 @@
 #!/usr/bin/env bash
 
-cur="$HOME/Videos"
+source "$HOME/.config/user-dirs.dirs"
+
+cur="$XDG_VIDEOS_DIR"
 nex=""
 
 while [ -d "$cur$nex" ]; do

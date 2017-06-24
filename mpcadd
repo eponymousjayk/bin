@@ -3,9 +3,17 @@
 # this probably won't work without the path to the file relative to the
 # root music directory specified in the mpc config
 
+if [ "$1" == "" ]; then
+    exit
+fi
+
+source "$HOME/.config/user-dirs.dirs"
+music_dir="`basename \"$XDG_MUSIC_DIR\"`"
+
 fullPath="$1"
 
-file="`echo "$1" | sed -e "s/.\+Music\///"`"
+file="`echo "$1" | sed -e "s/.\+$music_dir\///"`"
+echo "$file"
 a=$((`mpc playlist | wc -l` + 1))
 
 mpc add "$file"

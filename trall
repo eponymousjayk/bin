@@ -1,0 +1,9 @@
+#/urs/bin/env bash
+
+if [ "$1" == "" ]; then
+    exit
+fi
+
+ls | while read item; do
+     mv "$item" "`echo \"$item\" | tr \"$@\"`"
+done 2> /dev/null

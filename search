@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+
+term='*'
+for item in $@; do
+    term+="$item"
+    term+='*'
+done
+
+find . -iname "$term" 2>/dev/null

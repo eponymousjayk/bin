@@ -1,0 +1,5 @@
+#/urs/bin/env bash
+
+for char in $@; do
+    trall -d "$char"
+done

@@ -16,7 +16,7 @@ cd -- "$dir"
 for i in *; do
 	[[ -f $i ]] || continue
 	arr+=("$i")
-	[[ $i == $file ]] && c=$((${#arr[@]} - 1))
+	[[ "$i" == "$file" ]] && c="$((${#arr[@]} - 1))"
 done
 
-exec feh --scale-down "$@" -- "${arr[@]:c}" "${arr[@]:0:c}"
+exec feh --force-aliasing --scale-down "$@" -- "${arr[@]:c}" "${arr[@]:0:c}"

@@ -1,0 +1,35 @@
+#!/usr/bin/env bash
+
+MAGICK_TMPDIR="$HOME/.cache/magick"
+
+if [ "$1" == "" ]; then
+    echo "Insert an output file.";
+    exit
+fi
+
+if [ "`pidof compton`" ]; then
+    echo "Disabling compton momentarily..."
+    killall compton
+    flag="1"
+fi
+
+work=$(tr -d ':' <<< "/tmp/gifit$(date -Iseconds)")
+mkdir -p "$work"
+
+echo "Select geometry"
+dims=$(ffcast -qs)
+
+echo "Ctrl + C when finished"
+ffcast -g "$dims" rec -r 20 "$work"/%04d.png
+
+if [ "$flag" == "1" ]; then
+    compton -b
+fi
+
+ram_percent="25" # careful!
+free="`free --mega | grep Mem | awk '{print $4}'`"
+free="`echo "$free*$ram_percent/100" | bc`"
+
+convert -monitor -limit memory "$free" -loop 0 -delay 5 "$work"/*.png -layers Optimize "$1"
+
+rm -r "$work"
