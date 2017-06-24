@@ -2,10 +2,13 @@
 
 MAGICK_TMPDIR="$HOME/.cache/magick"
 
-if [ "$1" == "" ]; then
+
+filename="$1"
+if [ "$filename" == "" ]; then
     echo "Insert an output file.";
     exit
 fi
+
 
 if [ "`pidof compton`" ]; then
     echo "Disabling compton momentarily..."
@@ -30,6 +33,10 @@ ram_percent="25" # careful!
 free="`free --mega | grep Mem | awk '{print $4}'`"
 free="`echo "$free*$ram_percent/100" | bc`"
 
-convert -monitor -limit memory "$free" -loop 0 -delay 5 "$work"/*.png -layers Optimize "$1"
+if ! [ $(grep .gif$ <<< $1) ]; then
+    filename="$filename.gif"
+fi
+
+convert -monitor -limit memory "$free" -loop 0 -delay 5 "$work"/*.png -layers Optimize "$filename"
 
 rm -r "$work"

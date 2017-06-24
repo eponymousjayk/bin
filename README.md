@@ -11,7 +11,7 @@ feh-wrap:
 locator:
 ------------------
    Returns the current location as determined by an external source (duckduckgo.com).  
-   Dependencies: w3m, OpenVPN
+   Dependencies: w3m, OpenVPN (probably)
 
 mpcadd:
 ------------------
@@ -20,5 +20,10 @@ mpcadd:
 
 rofplay:
 ------------------
-   A video browser using rofi. Plays with exo-open, so will open with associated video player.  
+   A video browser using rofi. Uses exo-open.  
    Dependencies: rofi
+
+gif-it:
+------------------
+   Screen-cast a selection to a file indicated by filename.gif  
+   Dependencies: [ffcast](https://github.com/lolilolicon/ffcast)
