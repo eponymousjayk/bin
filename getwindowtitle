@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+
+title="`xdotool getactivewindow getwindowname`"
+
+cmd="$1"
+
+if [ "$cmd" == "-w" ]; then
+   title2="${title:0:$2}"
+
+   if [ "$title2" != "$title" ]; then
+      title="$title2..."
+   fi
+fi
+
+if ! [ "$title" = "" ]; then
+  echo "$title" | iconv -f utf-8 -t utf-8 -c
+fi

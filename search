@@ -6,4 +6,4 @@ for item in $@; do
     term+='*'
 done
 
-find . -iname "$term" 2>/dev/null
+find -L . -iname "$term"
