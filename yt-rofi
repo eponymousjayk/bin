@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+
+a=$(date -Idate | xargs ytcc -o Channel Title URL --list -s | sed 's/\s\+[│]\s\+/\n/g' | tail -n +5)
+
+i=0
+read=
+echo "$a" | while read line; do
+    if [ $((i % 3)) == 2 ]; then
+        echo "$read│$line"
+        read=
+    else
+        read+="$line │ "
+    fi
+    i=$((i + 1))
+done | rofi -dmenu | sed 's/.*https/https/' | xargs mpv

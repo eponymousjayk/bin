@@ -29,7 +29,7 @@ fi
 # ram_percent sets 'limit' of convert below. It's percent of *free* ram.
 # From my understanding, if it exceeds this limit, it uses MAGICK_TMPDIR, which is often /tmp, a tmpfs, which is pointless and defies expectation.
 ram_percent="25"
-MAGICK_TMPDIR="$HOME/.cache/magick"
+MAGICK_TMPDIR="$HOME/.cache/ImageMagick"
 
 free="`free --mega | grep Mem | awk '{print $4}'`"
 free="$(($free*$ram_percent/100))"

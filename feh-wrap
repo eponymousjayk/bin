@@ -13,7 +13,7 @@ shift
 
 cd -- "$dir"
 
-for i in *; do
+for i in *.jp[eg] *.png *.jpeg; do
 	[[ -f $i ]] || continue
 	arr+=("$i")
 	[[ "$i" == "$file" ]] && c="$((${#arr[@]} - 1))"

@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+
+for item in "$@"; do
+    cp "$item" /dev/fd/0
+done
